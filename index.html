@@ -11,16 +11,18 @@
 <div class="container">
     <h2>Hotel Booking Form</h2>
 
-    <form id="bookingForm">
+    <form id="bookingForm" novalidate>
 
         <div class="form-group">
             <label for="checkin">Check-in Date *</label>
             <input type="date" id="checkin" required>
+            <small class="error" id="checkinError"></small>
         </div>
 
         <div class="form-group">
             <label for="checkout">Check-out Date *</label>
             <input type="date" id="checkout" required>
+            <small class="error" id="checkoutError"></small>
         </div>
 
         <div class="form-group">
@@ -31,15 +33,17 @@
                 <option>Double</option>
                 <option>Suite</option>
             </select>
+            <small class="error" id="roomError"></small>
         </div>
 
         <div class="form-group">
             <label for="guests">Guest Count *</label>
-            <input type="number" id="guests" min="1" placeholder="Number of guests" required>
+            <input type="number" id="guests" min="1" required>
+            <small class="error" id="guestError"></small>
         </div>
 
         <div class="form-group full">
-            <label for="requests">Special Requests (Optional)</label>
+            <label for="requests">Special Requests</label>
             <textarea id="requests" rows="4"></textarea>
         </div>
 

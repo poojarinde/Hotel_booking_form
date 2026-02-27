@@ -66,7 +66,13 @@ button:hover {
     background-color: #1c65c9;
 }
 
-/* Responsive layout */
+.error {
+    color: #d93025;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* Responsive */
 @media (max-width: 600px) {
     .form-group {
         width: 100%;
