@@ -14,36 +14,52 @@
     <form id="bookingForm" novalidate>
 
         <div class="form-group">
-            <label for="checkin">Check-in Date *</label>
+            <label>
+                Check-in Date *
+                <span class="info" title="Select your arrival date">i</span>
+            </label>
             <input type="date" id="checkin" required>
             <small class="error" id="checkinError"></small>
         </div>
 
         <div class="form-group">
-            <label for="checkout">Check-out Date *</label>
+            <label>
+                Check-out Date *
+                <span class="info" title="Must be after check-in date">i</span>
+            </label>
             <input type="date" id="checkout" required>
             <small class="error" id="checkoutError"></small>
         </div>
 
         <div class="form-group">
-            <label for="roomType">Room Type *</label>
+            <label>
+                Room Type *
+                <span class="info" title="Choose a room based on your stay">i</span>
+            </label>
             <select id="roomType" required>
                 <option value="">Select Room Type</option>
-                <option>Single</option>
-                <option>Double</option>
-                <option>Suite</option>
+                <option value="Single">Single</option>
+                <option value="Double">Double</option>
+                <option value="Suite">Suite</option>
             </select>
+            <small class="hint" id="roomHint"></small>
             <small class="error" id="roomError"></small>
         </div>
 
         <div class="form-group">
-            <label for="guests">Guest Count *</label>
+            <label>
+                Guest Count *
+                <span class="info" title="Total number of guests staying">i</span>
+            </label>
             <input type="number" id="guests" min="1" required>
             <small class="error" id="guestError"></small>
         </div>
 
         <div class="form-group full">
-            <label for="requests">Special Requests</label>
+            <label>
+                Special Requests
+                <span class="info" title="Any special instructions for the hotel">i</span>
+            </label>
             <textarea id="requests" rows="4"></textarea>
         </div>
 

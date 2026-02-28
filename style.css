@@ -41,6 +41,9 @@ form {
 label {
     margin-bottom: 6px;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 input,
@@ -70,6 +73,25 @@ button:hover {
     color: #d93025;
     font-size: 12px;
     margin-top: 4px;
+}
+
+.hint {
+    color: #555;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.info {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #2f80ed;
+    color: #fff;
+    font-size: 11px;
+    cursor: help;
 }
 
 /* Responsive */
