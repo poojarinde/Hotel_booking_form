@@ -4,6 +4,8 @@ const checkin = document.getElementById("checkin");
 const checkout = document.getElementById("checkout");
 const roomType = document.getElementById("roomType");
 const guests = document.getElementById("guests");
+const requests = document.getElementById("requests");
+const submitBtn = document.getElementById("submitBtn");
 
 const checkinError = document.getElementById("checkinError");
 const checkoutError = document.getElementById("checkoutError");
@@ -11,84 +13,101 @@ const roomError = document.getElementById("roomError");
 const guestError = document.getElementById("guestError");
 
 const roomHint = document.getElementById("roomHint");
+const charCount = document.getElementById("charCount");
 
-/* Disable past dates */
+/* restrict past dates */
 const today = new Date().toISOString().split("T")[0];
 checkin.min = today;
 checkout.min = today;
 
-/* Dynamic checkout minimum date */
-checkin.addEventListener("change", function () {
+/* dynamic checkout min date */
+checkin.addEventListener("change", () => {
     checkout.value = "";
     checkout.min = checkin.value;
+    validateForm();
 });
 
-/* Dynamic room information (optional enhancement) */
-roomType.addEventListener("change", function () {
+/* live validations */
+checkout.addEventListener("change", validateForm);
+roomType.addEventListener("change", () => {
+    showRoomHint();
+    validateForm();
+});
+guests.addEventListener("input", validateForm);
+
+/* character counter */
+requests.addEventListener("input", () => {
+    charCount.textContent = requests.value.length + " / 200";
+});
+
+/* submit */
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    const bookingData = {
+        checkIn: checkin.value,
+        checkOut: checkout.value,
+        roomType: roomType.value,
+        guests: guests.value,
+        requests: requests.value
+    };
+
+    console.log(bookingData);
+    form.reset();
+    charCount.textContent = "0 / 200";
+    submitBtn.disabled = true;
+    roomHint.textContent = "";
+});
+
+/* ---------- functions ---------- */
+
+function validateForm() {
+
+    clearErrors();
+    let valid = true;
+
+    if (!checkin.value) {
+        checkinError.textContent = "Check-in date is required.";
+        valid = false;
+    }
+
+    if (!checkout.value) {
+        checkoutError.textContent = "Check-out date is required.";
+        valid = false;
+    }
+
+    if (checkin.value && checkout.value && checkout.value <= checkin.value) {
+        checkoutError.textContent = "Check-out must be after check-in.";
+        valid = false;
+    }
+
+    if (!roomType.value) {
+        roomError.textContent = "Room type is required.";
+        valid = false;
+    }
+
+    if (!guests.value || guests.value < 1) {
+        guestError.textContent = "Enter a valid guest count.";
+        valid = false;
+    }
+
+    submitBtn.disabled = !valid;
+    return valid;
+}
+
+function showRoomHint() {
 
     roomHint.textContent = "";
 
     if (roomType.value === "Single") {
-        roomHint.textContent = "Single room is suitable for one person.";
-    } 
-    else if (roomType.value === "Double") {
-        roomHint.textContent = "Double room is suitable for two guests.";
-    } 
-    else if (roomType.value === "Suite") {
-        roomHint.textContent = "Suite offers extra space and premium facilities.";
+        roomHint.textContent = "Best for one guest.";
+    } else if (roomType.value === "Double") {
+        roomHint.textContent = "Suitable for two guests.";
+    } else if (roomType.value === "Suite") {
+        roomHint.textContent = "Large room with premium facilities.";
     }
-});
-
-/* Form validation */
-form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    clearErrors();
-
-    let isValid = true;
-
-    if (!checkin.value) {
-        showError(checkinError, "Please select a check-in date.");
-        isValid = false;
-    }
-
-    if (!checkout.value) {
-        showError(checkoutError, "Please select a check-out date.");
-        isValid = false;
-    }
-
-    if (checkin.value && checkout.value && checkout.value <= checkin.value) {
-        showError(checkoutError, "Check-out date must be after check-in date.");
-        isValid = false;
-    }
-
-    if (!roomType.value) {
-        showError(roomError, "Please select a room type.");
-        isValid = false;
-    }
-
-    if (!guests.value || guests.value < 1) {
-        showError(guestError, "Please enter a valid guest count.");
-        isValid = false;
-    }
-
-    if (isValid) {
-
-        const bookingData = {
-            checkIn: checkin.value,
-            checkOut: checkout.value,
-            roomType: roomType.value,
-            guests: guests.value,
-            requests: document.getElementById("requests").value
-        };
-
-        console.log(bookingData);
-        form.reset();
-        roomHint.textContent = "";
-    }
-});
-
-function showError(el, msg) {
-    el.textContent = msg;
 }
 
 function clearErrors() {

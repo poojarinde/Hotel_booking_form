@@ -14,29 +14,20 @@
     <form id="bookingForm" novalidate>
 
         <div class="form-group">
-            <label>
-                Check-in Date *
-                <span class="info" title="Select your arrival date">i</span>
-            </label>
-            <input type="date" id="checkin" required>
+            <label>Check-in Date *</label>
+            <input type="date" id="checkin">
             <small class="error" id="checkinError"></small>
         </div>
 
         <div class="form-group">
-            <label>
-                Check-out Date *
-                <span class="info" title="Must be after check-in date">i</span>
-            </label>
-            <input type="date" id="checkout" required>
+            <label>Check-out Date *</label>
+            <input type="date" id="checkout">
             <small class="error" id="checkoutError"></small>
         </div>
 
         <div class="form-group">
-            <label>
-                Room Type *
-                <span class="info" title="Choose a room based on your stay">i</span>
-            </label>
-            <select id="roomType" required>
+            <label>Room Type *</label>
+            <select id="roomType">
                 <option value="">Select Room Type</option>
                 <option value="Single">Single</option>
                 <option value="Double">Double</option>
@@ -47,24 +38,19 @@
         </div>
 
         <div class="form-group">
-            <label>
-                Guest Count *
-                <span class="info" title="Total number of guests staying">i</span>
-            </label>
-            <input type="number" id="guests" min="1" required>
+            <label>Guest Count *</label>
+            <input type="number" id="guests" min="1">
             <small class="error" id="guestError"></small>
         </div>
 
         <div class="form-group full">
-            <label>
-                Special Requests
-                <span class="info" title="Any special instructions for the hotel">i</span>
-            </label>
-            <textarea id="requests" rows="4"></textarea>
+            <label>Special Requests</label>
+            <textarea id="requests" rows="4" maxlength="200"></textarea>
+            <small class="hint" id="charCount">0 / 200</small>
         </div>
 
         <div class="form-group full">
-            <button type="submit">Submit Booking</button>
+            <button type="submit" id="submitBtn" disabled>Submit Booking</button>
         </div>
 
     </form>
