@@ -15,19 +15,18 @@ const guestError = document.getElementById("guestError");
 const roomHint = document.getElementById("roomHint");
 const charCount = document.getElementById("charCount");
 
-/* restrict past dates */
+/* date restriction */
 const today = new Date().toISOString().split("T")[0];
 checkin.min = today;
 checkout.min = today;
 
-/* dynamic checkout min date */
+/* listeners */
 checkin.addEventListener("change", () => {
     checkout.value = "";
     checkout.min = checkin.value;
     validateForm();
 });
 
-/* live validations */
 checkout.addEventListener("change", validateForm);
 roomType.addEventListener("change", () => {
     showRoomHint();
@@ -35,13 +34,12 @@ roomType.addEventListener("change", () => {
 });
 guests.addEventListener("input", validateForm);
 
-/* character counter */
 requests.addEventListener("input", () => {
     charCount.textContent = requests.value.length + " / 200";
 });
 
 /* submit */
-form.addEventListener("submit", function (e) {
+form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -55,46 +53,68 @@ form.addEventListener("submit", function (e) {
     };
 
     console.log(bookingData);
+
     form.reset();
     charCount.textContent = "0 / 200";
-    submitBtn.disabled = true;
     roomHint.textContent = "";
+    submitBtn.disabled = true;
+    clearFieldStyles();
 });
 
-/* ---------- functions ---------- */
+/* ------------------ */
 
 function validateForm() {
 
     clearErrors();
+    clearFieldStyles();
+
     let valid = true;
 
     if (!checkin.value) {
-        checkinError.textContent = "Check-in date is required.";
+        setError(checkin, checkinError, "Check-in date is required.");
         valid = false;
     }
 
     if (!checkout.value) {
-        checkoutError.textContent = "Check-out date is required.";
+        setError(checkout, checkoutError, "Check-out date is required.");
         valid = false;
     }
 
     if (checkin.value && checkout.value && checkout.value <= checkin.value) {
-        checkoutError.textContent = "Check-out must be after check-in.";
+        setError(checkout, checkoutError, "Check-out must be after check-in.");
         valid = false;
     }
 
     if (!roomType.value) {
-        roomError.textContent = "Room type is required.";
+        setError(roomType, roomError, "Room type is required.");
         valid = false;
     }
 
     if (!guests.value || guests.value < 1) {
-        guestError.textContent = "Enter a valid guest count.";
+        setError(guests, guestError, "Enter a valid guest count.");
         valid = false;
     }
 
     submitBtn.disabled = !valid;
     return valid;
+}
+
+function setError(field, errorElement, message) {
+    field.classList.add("invalid");
+    errorElement.textContent = message;
+}
+
+function clearErrors() {
+    checkinError.textContent = "";
+    checkoutError.textContent = "";
+    roomError.textContent = "";
+    guestError.textContent = "";
+}
+
+function clearFieldStyles() {
+    [checkin, checkout, roomType, guests, requests].forEach(el => {
+        el.classList.remove("invalid");
+    });
 }
 
 function showRoomHint() {
@@ -103,16 +123,11 @@ function showRoomHint() {
 
     if (roomType.value === "Single") {
         roomHint.textContent = "Best for one guest.";
-    } else if (roomType.value === "Double") {
+    } 
+    else if (roomType.value === "Double") {
         roomHint.textContent = "Suitable for two guests.";
-    } else if (roomType.value === "Suite") {
+    } 
+    else if (roomType.value === "Suite") {
         roomHint.textContent = "Large room with premium facilities.";
     }
-}
-
-function clearErrors() {
-    checkinError.textContent = "";
-    checkoutError.textContent = "";
-    roomError.textContent = "";
-    guestError.textContent = "";
 }
