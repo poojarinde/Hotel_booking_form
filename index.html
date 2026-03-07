@@ -1,61 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Hotel Booking Form</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Booking Form</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<div class="main-container">
+
+<!-- Image Section -->
+
+<div class="image-section">
+<img src="https://images.unsplash.com/photo-1566073771259-6a8506099945">
+</div>
+
+<!-- Form Section -->
+
 <div class="container">
-    <h2>Hotel Booking Form</h2>
 
-    <form id="bookingForm" novalidate>
+<h2>Hotel Booking Form</h2>
 
-        <div class="form-group">
-            <label>Check-in Date *</label>
-            <input type="date" id="checkin">
-            <small class="error" id="checkinError"></small>
-        </div>
+<form id="bookingForm">
 
-        <div class="form-group">
-            <label>Check-out Date *</label>
-            <input type="date" id="checkout">
-            <small class="error" id="checkoutError"></small>
-        </div>
+<div class="input-group">
+<label>Full Name</label>
+<input type="text" id="name" placeholder="Enter your name" required>
+</div>
 
-        <div class="form-group">
-            <label>Room Type *</label>
-            <select id="roomType">
-                <option value="">Select Room Type</option>
-                <option value="Single">Single</option>
-                <option value="Double">Double</option>
-                <option value="Suite">Suite</option>
-            </select>
-            <small class="hint" id="roomHint"></small>
-            <small class="error" id="roomError"></small>
-        </div>
+<div class="input-group">
+<label>Email</label>
+<input type="email" id="email" placeholder="Enter your email" required>
+</div>
 
-        <div class="form-group">
-            <label>Guest Count *</label>
-            <input type="number" id="guests" min="1">
-            <small class="error" id="guestError"></small>
-        </div>
+<div class="input-group">
+<label>Phone Number</label>
+<input type="tel" id="phone" placeholder="Enter phone number" required>
+</div>
 
-        <div class="form-group full">
-            <label>Special Requests</label>
-            <textarea id="requests" rows="4" maxlength="200"></textarea>
-            <small class="hint" id="charCount">0 / 200</small>
-        </div>
+<div class="input-group">
+<label>Check-in Date</label>
+<input type="date" id="checkin" required>
+</div>
 
-        <div class="form-group full">
-            <button type="submit" id="submitBtn" disabled>Submit Booking</button>
-        </div>
+<div class="input-group">
+<label>Check-out Date</label>
+<input type="date" id="checkout" required>
+</div>
 
-    </form>
+<div class="input-group">
+<label>Guests</label>
+<input type="number" id="guests" min="1" required>
+</div>
+
+<div class="input-group">
+<label>Room Type</label>
+<select id="room" required>
+<option value="">Select Room</option>
+<option>Standard</option>
+<option>Deluxe</option>
+<option>Suite</option>
+</select>
+</div>
+
+<div class="input-group">
+<label>Special Request</label>
+<textarea id="request"></textarea>
+</div>
+
+<button type="submit">Book Now</button>
+
+</form>
+
+</div>
+
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
